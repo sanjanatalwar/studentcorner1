@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.auribises.college">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,7 +31,9 @@
         <activity android:name=".Button_Shape" />
         <activity android:name=".Student_Registration" />
         <activity android:name=".EdittextShape" />
-        <activity android:name=".TeacherRegistration"></activity>
+        <activity android:name=".TeacherRegistration" />
+        <activity android:name=".AllStudentActivity" />
+        <activity android:name=".TeacherMarksUpdate" />
     </application>
 
 </manifest>

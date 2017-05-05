@@ -1,9 +1,11 @@
 package com.auribises.college;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,17 +15,53 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+Button login;
+    RequestQueue requestQueue;
+    EditText name,epassword;
+    String email,password;
+
+    Teachers teachers;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        name=(EditText)findViewById(R.id.editTextName);
+        requestQueue= Volley.newRequestQueue(this);
+        epassword=(EditText)findViewById(R.id.editTextPassword);
+         teachers = new Teachers();
+
+        sharedPreferences = getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+login=(Button)findViewById(R.id.login);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,5 +141,75 @@ public class LoginActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void logIn() {
+
+
+        final StringRequest request = new StringRequest(Request.Method.POST, Util.TEACHER_Login_PHP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                     JSONObject  jsonObject=new JSONObject(response);
+                    JSONArray jsonArray=jsonObject.getJSONArray("teacher");
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                         Teachers teachers=new Teachers();
+                        teachers.setTeacherSubject(jsonObject1.getString("teacherSubject"));
+                        teachers.setTeacherName(jsonObject1.getString("teacherName"));
+                         editor.putString(Util.KEY_NAME,teachers.getTeacherName());
+                        editor.putString(Util.KEY_SUBJECT,teachers.getTeacherSubject());
+//                        Log.i("SUBJECTS",teachers.getTeacherSubject());
+                    }
+
+                    startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                editor.commit();
+
+
+
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Some Error" + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+
+                map.put("email", email);
+
+
+                map.put("password", password);
+
+
+                return map;
+            }
+
+
+        };
+        requestQueue.add(request);
+
+    }
+
+
+
+    public  void onClick(View v){
+        int id=v.getId();
+        if(id==R.id.login){
+            email=name.getText().toString().trim();
+            password=epassword.getText().toString().trim();
+
+              logIn();
+        }
     }
 }
