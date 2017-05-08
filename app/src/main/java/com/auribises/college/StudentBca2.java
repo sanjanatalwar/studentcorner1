@@ -1,10 +1,12 @@
 package com.auribises.college;
 
+import java.io.Serializable;
+
 /**
  * Created by Admin on 04-05-2017.
  */
 
-public class StudentBca2 {
+public class StudentBca2  implements Serializable{
 
     int id;
     String stuName, stuPhone, stuEmail, stuAddress, gender, studentClass, studentBirthMonth;

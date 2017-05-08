@@ -39,7 +39,7 @@ public class Util {
 
     public static final String INSERT_STUDENT_PHP = "http://studentedu.esy.es/student_corner/insertstudent.php";
     public static final String RETERIEVE_STUDENT_PHP = "http://studentedu.esy.es/student_corner/reterieve.php";
-    public static final String UPDATE_STUDENT_PHP = "http://studentedu.esy.es/student_corner/updatestudent.php";
+    public static final String UPDATE_STUDENT_PHP = "http://studentedu.esy.es/student_corner/updatestudents.php";
 
     public static final String INSERT_BCA_TWO_STUDENT_PHP = "http://studentedu.esy.es/student_corner/insertBcaTwoStudent.php";
     public static final String INSERT_BCA_THREE_STUDENT_PHP = "http://studentedu.esy.es/student_corner/insertBcaThreeStudent.php";
@@ -48,4 +48,8 @@ public class Util {
     public static final String INSERT_TEACHER_PHP = "http://studentedu.esy.es/student_corner/insertTeacher.php";
     public static final String EMAIL_TEACHER_PHP = "http://studentedu.esy.es/student_corner/admingmail.php";
     public static final String TEACHER_Login_PHP = "http://studentedu.esy.es/student_corner/teacherLogin.php";
+    public static final String RETERIEVE_BCA2_PHP = "http://studentedu.esy.es/student_corner/reterieveBca2.php";
+    public static final String UPDATE_BCA2_PHP = "http://studentedu.esy.es/student_corner/bca2update.php";
+    public static final String RETERIEVE_BCA3_PHP = "http://studentedu.esy.es/student_corner/reterieveBca3.php";
+    public static final String UPDATE_BCA3_PHP="http://studentedu.esy.es/student_corner/bca3update.php";
 }

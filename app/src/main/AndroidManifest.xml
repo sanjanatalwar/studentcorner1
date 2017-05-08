@@ -34,6 +34,12 @@
         <activity android:name=".TeacherRegistration" />
         <activity android:name=".AllStudentActivity" />
         <activity android:name=".TeacherMarksUpdate" />
+        <activity android:name=".TeacherOption" />
+        <activity android:name=".AllBcaTwoStudents" />
+        <activity android:name=".UpdateBca2" />
+        <activity android:name=".AllBcaThreeStudents" />
+        <activity android:name=".UpdateBca3" />
+        <activity android:name=".SlideShowActivity"></activity>
     </application>
 
 </manifest>
