@@ -39,7 +39,11 @@
         <activity android:name=".UpdateBca2" />
         <activity android:name=".AllBcaThreeStudents" />
         <activity android:name=".UpdateBca3" />
-        <activity android:name=".SlideShowActivity"></activity>
+        <activity android:name=".SlideShowActivity" />
+        <activity android:name=".AllBcaOneResult" />
+        <activity android:name=".AllBcaTwoResult" />
+        <activity android:name=".AllBcaThreeResult" />
+        <activity android:name=".StudentOptions"></activity>
     </application>
 
 </manifest>

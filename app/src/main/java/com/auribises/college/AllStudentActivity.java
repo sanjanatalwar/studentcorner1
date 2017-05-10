@@ -72,6 +72,7 @@ private SharedPreferences preferences;
                     int id = 0;
                     String n = "", p = "", e = "",  a = "", g=" ", c=" ", m=" ";
                     int d=0 ,y=0,mm=0,cm=0,pm=0;
+                    String pass="";
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jObj = jsonArray.getJSONObject(i);
 
@@ -88,8 +89,9 @@ private SharedPreferences preferences;
                         mm=jObj.getInt("mathMarks");
                         cm=jObj.getInt("cMArks");
                         pm=jObj.getInt("punjabiMarks");
+                        pass= jObj.getString("password");
 
-                        studentList.add(new StudentBca1(id, n,p,e,a,g,c,"",mm,cm,pm,d,0));
+                        studentList.add(new StudentBca1(id,n,p,e,a,g,c,"",mm,cm,pm,d,0,pass));
                         Log.i("test",studentList.toString());
                     }
 

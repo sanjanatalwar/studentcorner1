@@ -74,6 +74,7 @@ public class AllBcaThreeStudents extends AppCompatActivity implements AdapterVie
                     int id = 0;
                     String n = "", p = "", e = "", a = "", g = " ", c = " ", m = " ";
                     int d = 0, y = 0, gm = 0, os = 0, mm = 0;
+                    String pass="";
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jObj = jsonArray.getJSONObject(i);
 
@@ -90,8 +91,9 @@ public class AllBcaThreeStudents extends AppCompatActivity implements AdapterVie
                         gm = jObj.getInt("graphicsMarks");
                         os = jObj.getInt("operatingSystemMarks");
                         mm = jObj.getInt("mathMarks");
+                        pass=jObj.getString("password");
 
-                        studentList.add(new StudentBca3(id, n, p, e, a, g, c, m, d, 0, gm, os, mm));
+                        studentList.add(new StudentBca3(id, n, p, e, a, g, c, m, d, 0, gm, os, mm,pass));
                         Log.i("test", studentList.toString());
                     }
 
@@ -108,6 +110,7 @@ public class AllBcaThreeStudents extends AppCompatActivity implements AdapterVie
 
 
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

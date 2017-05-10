@@ -2,6 +2,7 @@ package com.auribises.college;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Student_Registration extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
-
+    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    static SecureRandom rnd = new SecureRandom();
     EditText eStudentName,eStudentAdress,eStudentPhone,eStudentEmail;
     RadioButton studentMale,studentFemale;
     Spinner spinnerStudentClass, studentBirthdate, studentBirthMonth, studentBirthYear;
@@ -32,6 +35,9 @@ public class Student_Registration extends AppCompatActivity implements CompoundB
     StudentBca1 studentBca1;
     StudentBca2 studentBcatwo;
     StudentBca3 studentBca3;
+    String url = "";
+
+    String email,subject,comment;
 
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
@@ -208,30 +214,37 @@ studentBirthMonth=(Spinner)findViewById(R.id.spinnerMounth);
         setContentView(R.layout.activity_student__registration);
         initSpinner();
 
-
+randomString(8);
 
     }
 
 
+    String randomString(int len) {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        return sb.toString();
+    }
+
     public void insertIntoCloud() {
 
-        String url = "";
-        if(spinnerStudentClass.getSelectedItem().equals("BCA1"))
-        {
+
+        if (spinnerStudentClass.getSelectedItem().equals("BCA1")) {
 
             url = Util.INSERT_STUDENT_PHP;
-        }
-        else if(spinnerStudentClass.getSelectedItem().equals("BCA2")){
-            url=Util.INSERT_BCA_TWO_STUDENT_PHP;
-        }
-        else{
-            url=Util.INSERT_BCA_THREE_STUDENT_PHP;
+        } else if (spinnerStudentClass.getSelectedItem().equals("BCA2")) {
+            url = Util.INSERT_BCA_TWO_STUDENT_PHP;
+        } else {
+            url = Util.INSERT_BCA_THREE_STUDENT_PHP;
         }
 
 
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.i("respo", studentBca3.toString());
+                    Log.i("resp", studentBcatwo.toString());
+
                     Toast.makeText(Student_Registration.this, "Response: " + response, Toast.LENGTH_LONG).show();
 
 
@@ -246,6 +259,9 @@ studentBirthMonth=(Spinner)findViewById(R.id.spinnerMounth);
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
+                    //if(spinnerStudentClass.getSelectedItem().equals("BCA1")) {
+
+
                     map.put("stuName", studentBca1.getStuName());
                     map.put("stuPhone", studentBca1.getStuPhone());
                     map.put("stuEmail", studentBca1.getStuEmail());
@@ -255,50 +271,155 @@ studentBirthMonth=(Spinner)findViewById(R.id.spinnerMounth);
                     map.put("studentBirthMonth", studentBca1.getStudentBirthMonth());
                     map.put("studentBirthDate", String.valueOf(studentBca1.getStudentBirthDate()));
                     map.put("StudentBirthYear", String.valueOf(studentBca1.getStudentBirthYear()));
-                    map.put("mathMarks", new Integer(studentBca1.getMathMarks()).toString());
+                    map.put("mathMarks", String.valueOf(studentBca1.getMathMarks()));
                     map.put("cMArks", String.valueOf(studentBca1.getcMArks()));
                     map.put("punjabiMarks", String.valueOf(studentBca1.getPunjabiMarks()));
+                    map.put("password", studentBca1.getPassword());
+
+
+
+
 
 
                     return map;
 
 
-                }
 
+
+
+                }
 
             };
             requestQueue.add(request);
         }
 
+
+
+
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        int id=buttonView.getId();
-        if(isChecked) {
+        int id = buttonView.getId();
+        if (isChecked) {
+            {
 
+                if (id == R.id.studentfemale) {
+                    studentBca1.setGender("Female");
 
-            if (id == R.id.studentfemale) {studentBca1.setGender("Female");
-
-            }
-            else{
+                } else {
                     studentBca1.setGender("Male");
                 }
             }
 
         }
-        public  void studentRegisterClick(View v){
-            int id=v.getId();
-            if(id==R.id.studentregistration){
-                studentBca1.setStuName(eStudentName.getText().toString().trim());
-                studentBca1.setStuPhone(eStudentPhone.getText().toString().trim());
-                studentBca1.setStuEmail(eStudentEmail.getText().toString().trim());
-                studentBca1.setStuAddress(eStudentAdress.getText().toString().trim());
-                studentBca1.setGender(studentMale.getText().toString().trim());
-                studentBca1.setGender(studentFemale.getText().toString().trim());
 
-                insertIntoCloud();
+    }
+
+    public void sendEmail(){
+        StringRequest request=new StringRequest(Request.Method.POST, Util.EMAIL_TEACHER_PHP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("student2",studentBcatwo.toString());
+                Toast.makeText(Student_Registration.this, "Response: " + response, Toast.LENGTH_LONG).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Student_Registration.this, "Some Error" + error.getMessage(), Toast.LENGTH_LONG).show();
 
             }
 
-        }
+        })
+
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("email", email);
+                map.put("subject", subject);
+                map.put("comment", comment);
+
+
+
+                return map;
+            }
+        };
+        requestQueue.add(request);
     }
+
+
+        public  void studentRegisterClick(View v){
+            int id=v.getId();
+
+            if(id==R.id.studentregistration) {
+
+
+
+
+
+                    studentBca1.setStuName(eStudentName.getText().toString().trim());
+                    studentBca1.setStuPhone(eStudentPhone.getText().toString().trim());
+                    studentBca1.setStuEmail(eStudentEmail.getText().toString().trim());
+                    studentBca1.setStuAddress(eStudentAdress.getText().toString().trim());
+                    studentBca1.setGender(studentMale.getText().toString().trim());
+                    studentBca1.setGender(studentFemale.getText().toString().trim());
+                    studentBca1.setPassword(randomString(8));
+
+
+                    email = eStudentEmail.getText().toString().trim();
+
+                    subject = "Dear " + studentBca1.getStuName() + "Secret of Education lies in respecting the Student";
+                    comment = "Your Username:" + studentBca1.getStuEmail() + "\n" +
+                            "Password:" + studentBca1.getPassword();
+
+                    studentBcatwo.setStuName(eStudentName.getText().toString().trim());
+                    studentBcatwo.setStuPhone(eStudentPhone.getText().toString().trim());
+                    studentBcatwo.setStuEmail(eStudentEmail.getText().toString().trim());
+
+                    studentBcatwo.setStuAddress(eStudentAdress.getText().toString().trim());
+                    studentBcatwo.setGender(studentMale.getText().toString().trim());
+                    studentBcatwo.setGender(studentFemale.getText().toString().trim());
+                    studentBcatwo.setPassword(randomString(8));
+
+
+                    email = eStudentEmail.getText().toString().trim();
+
+                    subject = "Dear " + studentBcatwo.getStuName() + "Secret of Education lies in respecting the Student";
+                    comment = "Your Username:" + studentBcatwo.getStuEmail() + "\n" +
+                            "Password:" + studentBcatwo.getPassword();
+
+
+
+                studentBca3.setStuName(eStudentName.getText().toString().trim());
+                studentBca3.setStuPhone(eStudentPhone.getText().toString().trim());
+                studentBca3.setStuEmail(eStudentEmail.getText().toString().trim());
+                studentBca3.setStuAddress(eStudentAdress.getText().toString().trim());
+                studentBca3.setGender(studentMale.getText().toString().trim());
+                studentBca3.setGender(studentFemale.getText().toString().trim());
+                studentBca3.setPassword(randomString(8));
+
+
+                email = eStudentEmail.getText().toString().trim();
+
+                subject = "Dear " + studentBcatwo.getStuName() + "Secret of Education lies in respecting the Student";
+                comment = "Your Username:" + studentBcatwo.getStuEmail() + "\n" +
+                        "Password:" + studentBcatwo.getPassword();
+                insertIntoCloud();
+                sendEmail();
+
+
+
+                }
+
+            }
+
+
+
+
+            }
+
+
+
 

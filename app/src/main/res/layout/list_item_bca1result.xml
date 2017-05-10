@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20dp"
+                android:id="@+id/textViewName"/>
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="Math Marks"
+                android:textSize="20dp"
+                android:id="@+id/textViewMathMarks"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="C Marks"
+                android:textSize="20dp"
+                android:id="@+id/textViewCMarks"/>
+
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="Punjabi Marks"
+                android:textSize="20dp"
+                android:id="@+id/textViewPunjabiMarks"/>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+</LinearLayout>

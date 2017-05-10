@@ -36,12 +36,13 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-Button login;
+Button login,studentLogin;
     RequestQueue requestQueue;
     EditText name,epassword;
     String email,password;
-
-    Teachers teachers;
+int success;
+StudentBca1 studentBca1;
+    Teachers teacher;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -51,10 +52,11 @@ Button login;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        studentBca1=new StudentBca1();
         name=(EditText)findViewById(R.id.editTextName);
         requestQueue= Volley.newRequestQueue(this);
         epassword=(EditText)findViewById(R.id.editTextPassword);
-         teachers = new Teachers();
+         teacher = new Teachers();
 
         sharedPreferences = getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -62,6 +64,7 @@ Button login;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 login=(Button)findViewById(R.id.login);
+        studentLogin = (Button)findViewById(R.id.studentLogin);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,25 +153,95 @@ login=(Button)findViewById(R.id.login);
     }
     public void logIn() {
 
-
-        final StringRequest request = new StringRequest(Request.Method.POST, Util.TEACHER_Login_PHP, new Response.Listener<String>() {
+         StringRequest request = new StringRequest(Request.Method.POST, Util.TEACHER_Login_PHP, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                     JSONObject  jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("teacher");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                         Teachers teachers=new Teachers();
+                ////////
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("teacher");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            Teachers teachers = new Teachers();
+                            teachers.setTeacherSubject(jsonObject1.getString("teacherSubject"));
+                            teachers.setTeacherName(jsonObject1.getString("teacherName"));
+                            editor.putString(Util.KEY_NAME, teachers.getTeacherName());
+                            editor.putString(Util.KEY_SUBJECT, teachers.getTeacherSubject());
+//                        Log.i("SUBJECTS",teachers.getTeacherSubject());
+                        }
+
+                        //startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
+                        startActivity(new Intent(LoginActivity.this, TeacherOption.class));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    editor.commit();
+
+                }
+
+
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Some Error" + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+
+                map.put("email", email);
+
+
+                map.put("password", password);
+
+
+                return map;
+            }
+
+
+        };
+        requestQueue.add(request);
+
+    }
+
+    public  void studentLogin()
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, Util.BCA_ONE_Login_PHP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                    Intent intent = new Intent(LoginActivity.this, StudentOptions.class);
+
+
+                    startActivity(intent);
+                ///////
+
+
+               /* try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("teacher");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        Teachers teachers = new Teachers();
                         teachers.setTeacherSubject(jsonObject1.getString("teacherSubject"));
                         teachers.setTeacherName(jsonObject1.getString("teacherName"));
-                         editor.putString(Util.KEY_NAME,teachers.getTeacherName());
-                        editor.putString(Util.KEY_SUBJECT,teachers.getTeacherSubject());
+                        editor.putString(Util.KEY_NAME, teachers.getTeacherName());
+                        editor.putString(Util.KEY_SUBJECT, teachers.getTeacherSubject());
 //                        Log.i("SUBJECTS",teachers.getTeacherSubject());
                     }
 
                     //startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
-                    startActivity(new Intent(LoginActivity.this,TeacherOption.class));
+                    startActivity(new Intent(LoginActivity.this, TeacherOption.class));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -176,10 +249,11 @@ login=(Button)findViewById(R.id.login);
 
                 editor.commit();
 
-
-
+            }*/
 
             }
+
+
 
         }, new Response.ErrorListener() {
             @Override
@@ -215,10 +289,26 @@ login=(Button)findViewById(R.id.login);
         if(id==R.id.login){
             email=name.getText().toString().trim();
             password=epassword.getText().toString().trim();
+            //Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
+            //startActivity(i);
 
               logIn();
 
 
         }
     }
+
+    public  void clickMe(View view)
+
+    {
+        int id = view.getId();
+        if(id ==R.id.studentLogin)
+        {
+            email=name.getText().toString().trim();
+            password=epassword.getText().toString().trim();
+            studentLogin();
+        }
+    }
+
+
 }

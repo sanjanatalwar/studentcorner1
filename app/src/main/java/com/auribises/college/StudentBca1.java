@@ -7,11 +7,14 @@ public class StudentBca1 implements Serializable{
     int id;
     String stuName, stuPhone, stuEmail, stuAddress, gender, studentClass, studentBirthMonth;
     int  studentBirthDate, StudentBirthYear,mathMarks, cMArks, punjabiMarks;
+    String password;
+
+
 
     public StudentBca1() {
     }
 
-    public StudentBca1(int id, String stuName, String stuPhone, String stuEmail, String stuAddress, String gender, String studentClass, String studentBirthMonth, int mathMarks, int cMArks, int punjabiMarks, int studentBirthDate, int studentBirthYear) {
+    public StudentBca1(int id, String stuName, String stuPhone, String stuEmail, String stuAddress, String gender, String studentClass, String studentBirthMonth, int mathMarks, int cMArks, int punjabiMarks, int studentBirthDate, int studentBirthYear, String password) {
         this.id = id;
         this.stuName = stuName;
         this.stuPhone = stuPhone;
@@ -24,7 +27,24 @@ public class StudentBca1 implements Serializable{
         this.cMArks = cMArks;
         this.punjabiMarks = punjabiMarks;
         this.studentBirthDate = studentBirthDate;
-        StudentBirthYear = studentBirthYear;
+        this.StudentBirthYear = studentBirthYear;
+        this.password=password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStuName() {
@@ -112,13 +132,7 @@ public class StudentBca1 implements Serializable{
         this.studentBirthDate = studentBirthDate;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getStudentBirthYear() {
         return StudentBirthYear;
@@ -135,22 +149,20 @@ public class StudentBca1 implements Serializable{
     @Override
     public String toString() {
         return "StudentBca1{" +
-                "stuName='" + stuName + '\'' +
-                "stuId='" + id + '\'' +
+                "id=" + id +
+                ", stuName='" + stuName + '\'' +
                 ", stuPhone='" + stuPhone + '\'' +
                 ", stuEmail='" + stuEmail + '\'' +
                 ", stuAddress='" + stuAddress + '\'' +
                 ", gender='" + gender + '\'' +
                 ", studentClass='" + studentClass + '\'' +
                 ", studentBirthMonth='" + studentBirthMonth + '\'' +
+                ", studentBirthDate=" + studentBirthDate +
+                ", StudentBirthYear=" + StudentBirthYear +
                 ", mathMarks=" + mathMarks +
                 ", cMArks=" + cMArks +
                 ", punjabiMarks=" + punjabiMarks +
-                ", studentBirthDate=" + studentBirthDate +
-                ", StudentBirthYear=" + StudentBirthYear +
+                ", password='" + password + '\'' +
                 '}';
     }
-
-
-
 }

@@ -4,20 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.auribises.college.TeacherOption">
-
-
+    tools:context="com.auribises.college.StudentOptions">
 
     <Button
-        android:id="@+id/bca1list"
-        android:layout_width="341dp"
-        android:layout_height="138dp"
-        android:text="List Of Bca1"
-        android:onClick="onClick"
-        android:textSize="30dp"
-        android:textStyle="italic"
-        android:textColor="@color/colorWhite"
+        android:id="@+id/bca1result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result of BCA1"
         android:background="@drawable/button__shape"
+android:onClick="bca1Click"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,48 +21,44 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.104"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintVertical_bias="0.119" />
 
     <Button
-        android:id="@+id/bca2list"
-        android:layout_width="342dp"
-        android:layout_height="132dp"
-        android:text="List Of Bca2"
-        android:textSize="30dp"
+        android:id="@+id/bca2result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result of Bca2"
         android:onClick="bca2Click"
-        android:textStyle="italic"
-        android:textColor="@color/colorWhite"
+        android:background="@drawable/button__shape"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button__shape"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintVertical_bias="0.344" />
 
     <Button
-        android:id="@+id/bca3list"
-        android:layout_width="343dp"
-        android:layout_height="130dp"
-        android:text="List of Bca3"
-        android:textSize="30dp"
-        android:onClick="onclick"
-        android:textStyle="italic"
-        android:textColor="@color/colorWhite"
+        android:id="@+id/bca3result"
+        android:layout_width="268dp"
+        android:layout_height="62dp"
+        android:text="Result of bca3"
         android:background="@drawable/button__shape"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
+        android:onClick="bca3Click"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.838"
-        app:layout_constraintHorizontal_bias="0.153" />
+        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintVertical_bias="0.551" />
+
+
 </android.support.constraint.ConstraintLayout>

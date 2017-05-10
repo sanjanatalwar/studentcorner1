@@ -11,11 +11,12 @@ public class StudentBca2  implements Serializable{
     int id;
     String stuName, stuPhone, stuEmail, stuAddress, gender, studentClass, studentBirthMonth;
     int  studentBirthDate, StudentBirthYear,mathMarks,unixMarks,dataStructureMarks;
+    String password;
 
     public StudentBca2() {
     }
 
-    public StudentBca2(int id, String stuName, String stuPhone, String stuEmail, String stuAddress, String gender, String studentClass, String studentBirthMonth, int studentBirthDate, int studentBirthYear, int mathMarks, int unixMarks, int dataStructureMarks) {
+    public StudentBca2(int id, String stuName, String stuPhone, String stuEmail, String stuAddress, String gender, String studentClass, String studentBirthMonth, int studentBirthDate, int studentBirthYear, int mathMarks, int unixMarks, int dataStructureMarks,String password) {
         this.id = id;
         this.stuName = stuName;
         this.stuPhone = stuPhone;
@@ -29,6 +30,15 @@ public class StudentBca2  implements Serializable{
         this.mathMarks = mathMarks;
         this.unixMarks = unixMarks;
         this.dataStructureMarks = dataStructureMarks;
+        this.password=password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {
@@ -151,6 +161,7 @@ public class StudentBca2  implements Serializable{
                 ", mathMarks=" + mathMarks +
                 ", unixMarks=" + unixMarks +
                 ", dataStructureMarks=" + dataStructureMarks +
+                ", password=" + password +
                 '}';
     }
 }

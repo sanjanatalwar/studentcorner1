@@ -72,6 +72,7 @@ public class AllBcaTwoStudents extends AppCompatActivity implements AdapterView.
                      int id = 0;
                      String n = "", p = "", e = "", a = "", g = " ", c = " ", m = " ";
                      int d = 0, y = 0, mm = 0, um = 0, dm = 0;
+                     String pass="";
                      for (int i = 0; i < jsonArray.length(); i++) {
                          JSONObject jObj = jsonArray.getJSONObject(i);
 
@@ -88,8 +89,9 @@ public class AllBcaTwoStudents extends AppCompatActivity implements AdapterView.
                          mm = jObj.getInt("mathMarks");
                          um = jObj.getInt("unixMarks");
                          dm = jObj.getInt("dataStructureMarks");
+                         pass= jObj.getString("password");
 
-                         studentList.add(new StudentBca2(id, n, p, e, a, g, c, m, d, 0, mm, um, dm));
+                         studentList.add(new StudentBca2(id, n, p, e, a, g, c, m, d, 0, mm, um, dm,pass));
                          Log.i("test", studentList.toString());
                      }
 
