@@ -1,5 +1,6 @@
 package com.auribises.college;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,12 +21,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Student_Registration extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+    ProgressDialog progressDialog;
+
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
     EditText eStudentName,eStudentAdress,eStudentPhone,eStudentEmail;
@@ -212,6 +216,10 @@ studentBirthMonth=(Spinner)findViewById(R.id.spinnerMounth);
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student__registration);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait..");
+        progressDialog.setCancelable(false);
+
         initSpinner();
 
 randomString(8);
@@ -228,6 +236,7 @@ randomString(8);
 
     public void insertIntoCloud() {
 
+ final String token= FirebaseInstanceId.getInstance().getToken();
 
         if (spinnerStudentClass.getSelectedItem().equals("BCA1")) {
 
@@ -237,13 +246,14 @@ randomString(8);
         } else {
             url = Util.INSERT_BCA_THREE_STUDENT_PHP;
         }
-
+progressDialog.show();
 
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.i("respo", studentBca3.toString());
                     Log.i("resp", studentBcatwo.toString());
+                    progressDialog.dismiss();
 
                     Toast.makeText(Student_Registration.this, "Response: " + response, Toast.LENGTH_LONG).show();
 
@@ -276,7 +286,7 @@ randomString(8);
                     map.put("punjabiMarks", String.valueOf(studentBca1.getPunjabiMarks()));
                     map.put("password", studentBca1.getPassword());
 
-
+                     map.put("token",token);
 
 
 
@@ -406,16 +416,92 @@ randomString(8);
                 subject = "Dear " + studentBcatwo.getStuName() + "Secret of Education lies in respecting the Student";
                 comment = "Your Username:" + studentBcatwo.getStuEmail() + "\n" +
                         "Password:" + studentBcatwo.getPassword();
-                insertIntoCloud();
-                sendEmail();
-
-
+                //insertIntoCloud();
+                if(validateFields()){
+                    insertIntoCloud();
+                    sendEmail();
+                }
+                clearFields();
 
                 }
 
             }
+            void clearFields()
+            {
+                eStudentName.setText("");
+                eStudentAdress.setText("");
+                eStudentPhone.setText("");
+                eStudentEmail.setText("");
+                studentMale.setChecked(false);
+                studentFemale.setChecked(false);
+                spinnerStudentClass.setSelection(0);
+                studentBirthdate.setSelection(0);
+                studentBirthMonth.setSelection(0);
+                studentBirthYear.setSelection(0);
+
+            }
+
+                       boolean validateFields() {
+                           boolean flag = true;
+                           if (studentBca1.getStuName().isEmpty()) {
+                               if (studentBcatwo.getStuName().isEmpty()) {
+                                   if (studentBca3.getStuName().isEmpty()) {
+                                       flag = false;
+
+                                       eStudentName.setError("please Enter Name");
+                                   }
+                               }
+
+                           }
+
+                           if(studentBca1.getStuPhone().isEmpty()){
+                               if(studentBcatwo.getStuPhone().isEmpty()){
+                                   if(studentBca3.getStuPhone().isEmpty()){
+                                       flag=false;
+                                       eStudentPhone.setError("please Enter phone");
+
+                                   }
+                               }
+
+                           }
 
 
+                           else{
+                               if(studentBca1.getStuPhone().length()<10){
+                                   if(studentBcatwo.getStuPhone().length()<10){
+                                       if(studentBca3.getStuPhone().length()<10){
+                                           flag =false;
+                                           eStudentPhone.setError("please enter 10 digit phone no.");
+                                       }
+                                   }
+                               }
+                           }
+
+
+                           if(studentBca1.getStuEmail().isEmpty()){
+                               if(studentBcatwo.getStuEmail().isEmpty()){
+                                   if(studentBca3.getStuEmail().isEmpty()){
+                                       flag=false;
+                                       eStudentEmail.setError("please enter mail");
+                                   }
+                               }
+                           }
+
+                           else{
+                               if(!(studentBca1.getStuEmail().contains("@") && studentBca1.getStuEmail().contains("."))){
+
+                                   if(!(studentBcatwo.getStuEmail().contains("@") && studentBcatwo.getStuEmail().contains("."))){
+
+                                       if(!(studentBca3.getStuEmail().contains("@") && studentBca3.getStuEmail().contains("."))){
+                                             flag =false;
+                                           eStudentEmail.setError("please enter correct email");
+                                       }
+                                   }
+                               }
+                           }
+                          return flag;
+
+                       }
 
 
             }

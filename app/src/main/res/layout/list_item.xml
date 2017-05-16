@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
+                android:textColor="@color/lightBlue"
                 android:textSize="20dp"
                 android:id="@+id/textViewName"/>
             <TextView
@@ -24,9 +25,9 @@
 
                 android:layout_height="wrap_content"
                 android:text="Class"
+                android:textColor="@color/lightBlue"
                 android:textSize="20dp"
                 android:id="@+id/textViewClass"/>
-
 
 
 

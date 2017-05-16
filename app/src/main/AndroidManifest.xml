@@ -43,7 +43,24 @@
         <activity android:name=".AllBcaOneResult" />
         <activity android:name=".AllBcaTwoResult" />
         <activity android:name=".AllBcaThreeResult" />
-        <activity android:name=".StudentOptions"></activity>
+        <activity android:name=".StudentOptions" />
+
+        <!-- [START firebase_service] -->
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
+        <!-- [START firebase_iid_service] -->
+        <service android:name=".fcm.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        rebase_iid_service] -->
+        <activity android:name=".AdminLoginActivity" />
+        <activity android:name=".AdminOptions"></activity>
     </application>
 
 </manifest>

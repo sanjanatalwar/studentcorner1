@@ -48,10 +48,10 @@ public class Bca3ResultAdapter extends ArrayAdapter<StudentBca3> {
         StudentBca3 studentBca3=studentList.get(position);
         txtName.setText(studentBca3.getStuName());
 
-        txtGraphicsMarks.setText(String.valueOf(studentBca3.getGraphicsMarks()));
+        txtGraphicsMarks.setText("Marks in Graphics:= "+String.valueOf(studentBca3.getGraphicsMarks()));
 
-        txtOperatingSystemMarks.setText(String.valueOf(studentBca3.getOperatingSystemMarks()));
-        txtMathMarks.setText(String.valueOf(studentBca3.getMathMarks()));
+        txtOperatingSystemMarks.setText("Marks in Operating System:= "+String.valueOf(studentBca3.getOperatingSystemMarks()));
+        txtMathMarks.setText("Marks In Math:= "+String.valueOf(studentBca3.getMathMarks()));
 
         return  view;
     }

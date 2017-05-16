@@ -36,6 +36,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 Button login,studentLogin;
     RequestQueue requestQueue;
     EditText name,epassword;
@@ -52,6 +53,7 @@ StudentBca1 studentBca1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         studentBca1=new StudentBca1();
         name=(EditText)findViewById(R.id.editTextName);
         requestQueue= Volley.newRequestQueue(this);
@@ -143,6 +145,8 @@ login=(Button)findViewById(R.id.login);
 
         } else if (id == R.id.nav_share) {
 
+            Intent i=new Intent(LoginActivity.this,AdminLoginActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_send) {
 
         }
@@ -152,6 +156,7 @@ login=(Button)findViewById(R.id.login);
         return true;
     }
     public void logIn() {
+
 
          StringRequest request = new StringRequest(Request.Method.POST, Util.TEACHER_Login_PHP, new Response.Listener<String>() {
             @Override
@@ -219,12 +224,21 @@ login=(Button)findViewById(R.id.login);
         StringRequest request = new StringRequest(Request.Method.POST, Util.BCA_ONE_Login_PHP, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if (jsonObject.getInt("success")==1) {
+                        //Toast.makeText(LoginActivity.this, "Response: " + "result is", Toast.LENGTH_LONG).show();
+Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
+                        startActivity(i);
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, "Response: " + "This is Not Your Class", Toast.LENGTH_LONG).show();
+                    }
 
-                    Intent intent = new Intent(LoginActivity.this, StudentOptions.class);
-
-
-                    startActivity(intent);
-                ///////
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ///}////
 
 
                /* try {
@@ -283,6 +297,140 @@ login=(Button)findViewById(R.id.login);
     }
 
 
+    public  void bca2Login()
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, Util.BCA_TWO_Login_PHP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if (jsonObject.getInt("success")==1) {
+                        //Toast.makeText(LoginActivity.this, "Response: " + "result is", Toast.LENGTH_LONG).show();
+                        Intent i=new Intent(LoginActivity.this,AllBcaTwoResult.class);
+                        startActivity(i);
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, "Response: " + "This is Not Your Class", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+               /* try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("teacher");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        Teachers teachers = new Teachers();
+                        teachers.setTeacherSubject(jsonObject1.getString("teacherSubject"));
+                        teachers.setTeacherName(jsonObject1.getString("teacherName"));
+                        editor.putString(Util.KEY_NAME, teachers.getTeacherName());
+                        editor.putString(Util.KEY_SUBJECT, teachers.getTeacherSubject());
+//                        Log.i("SUBJECTS",teachers.getTeacherSubject());
+                    }
+
+                    //startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
+                    startActivity(new Intent(LoginActivity.this, TeacherOption.class));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                editor.commit();
+
+            }*/
+
+            }
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Some Error" + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+
+                map.put("email", email);
+
+
+                map.put("password", password);
+
+
+                return map;
+            }
+
+
+        };
+        requestQueue.add(request);
+
+    }
+
+    public  void bca3Login()
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, Util.BCA_THREE_Login_PHP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if (jsonObject.getInt("success")==1) {
+                        //Toast.makeText(LoginActivity.this, "Response: " + "result is", Toast.LENGTH_LONG).show();
+                        Intent i=new Intent(LoginActivity.this,AllBcaThreeResult.class);
+                        startActivity(i);
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, "Response: " + "This is Not Your Class", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+            }
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Some Error" + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+
+                map.put("email", email);
+
+
+                map.put("password", password);
+
+
+                return map;
+            }
+
+
+        };
+        requestQueue.add(request);
+
+    }
+
+
+
 
     public  void onClick(View v){
         int id=v.getId();
@@ -307,6 +455,31 @@ login=(Button)findViewById(R.id.login);
             email=name.getText().toString().trim();
             password=epassword.getText().toString().trim();
             studentLogin();
+        }
+    }
+
+    public  void bca2login(View view)
+
+    {
+        int id = view.getId();
+        if(id ==R.id.bca2login)
+        {
+            email=name.getText().toString().trim();
+            password=epassword.getText().toString().trim();
+            bca2Login();
+        }
+    }
+
+    public  void bca3login(View view)
+
+    {
+        int id = view.getId();
+        if(id ==R.id.bca3login)
+        {
+            email=name.getText().toString().trim();
+            password=epassword.getText().toString().trim();
+            bca3Login();
+
         }
     }
 

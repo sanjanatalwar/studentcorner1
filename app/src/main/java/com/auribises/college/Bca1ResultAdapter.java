@@ -47,10 +47,10 @@ public class Bca1ResultAdapter extends ArrayAdapter<StudentBca1> {
         StudentBca1 studentBca1=studentList.get(position);
         txtName.setText(studentBca1.getStuName());
 
-        txtMathMarks.setText(String.valueOf(studentBca1.getMathMarks()));
+        txtMathMarks.setText("Marks in Math:= "+String.valueOf(studentBca1.getMathMarks()));
 
-        txtCMarks.setText(String.valueOf(studentBca1.getcMArks()));
-        txtPunjabiMarks.setText(String.valueOf(studentBca1.getPunjabiMarks()));
+        txtCMarks.setText("Marks in C:= "+String.valueOf(studentBca1.getcMArks()));
+        txtPunjabiMarks.setText("Marks  in Punjabi:= "+String.valueOf(studentBca1.getPunjabiMarks()));
 
         return  view;
     }

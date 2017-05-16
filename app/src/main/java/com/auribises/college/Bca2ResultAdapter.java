@@ -50,11 +50,11 @@ public class Bca2ResultAdapter extends ArrayAdapter<StudentBca2> {
         txtName.setText(studentBca2.getStuName());
 
 
-        txtMathMarks.setText(String.valueOf(studentBca2.getMathMarks()));
+        txtMathMarks.setText("Marks in Math:= "+String.valueOf(studentBca2.getMathMarks()));
         Log.i("math",String.valueOf(studentBca2.getMathMarks()));
 
-        txtUnixMarks.setText(String.valueOf(studentBca2.getUnixMarks()));
-        txtDataStructureMarks.setText(String.valueOf(studentBca2.getDataStructureMarks()));
+        txtUnixMarks.setText("Marks in Unix:= "+String.valueOf(studentBca2.getUnixMarks()));
+        txtDataStructureMarks.setText("Marks in DataStructure:= "+String.valueOf(studentBca2.getDataStructureMarks()));
 
         return  view;
     }

@@ -15,11 +15,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
+                android:textColor="@color/lightBlue"
                 android:textSize="20dp"
                 android:id="@+id/textViewName"/>
             <TextView
                 android:layout_width="match_parent"
-
+                    android:textColor="@color/lightBlue"
                 android:layout_height="wrap_content"
                 android:text="Math Marks"
                 android:textSize="20dp"
@@ -32,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="C Marks"
                 android:textSize="20dp"
+                android:textColor="@color/lightBlue"
                 android:id="@+id/textViewCMarks"/>
 
             <TextView
@@ -40,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="Punjabi Marks"
                 android:textSize="20dp"
+                android:textColor="@color/lightBlue"
                 android:id="@+id/textViewPunjabiMarks"/>
 
 

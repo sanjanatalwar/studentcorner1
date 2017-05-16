@@ -1,5 +1,6 @@
 package com.auribises.college;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TeacherRegistration extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+    ProgressDialog progressDialog;
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
     EditText teacherName,teacherAddress,teacherSubject,teacherEmail,teacherPhone;
@@ -57,6 +59,10 @@ public class TeacherRegistration extends AppCompatActivity implements CompoundBu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_registration);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait..");
+        progressDialog.setCancelable(false);
         init();
         randomString(8);
     }
@@ -70,9 +76,12 @@ public class TeacherRegistration extends AppCompatActivity implements CompoundBu
 
     void insertIntoCloud()
     {
+
+        progressDialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, Util.INSERT_TEACHER_PHP, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 Toast.makeText(TeacherRegistration.this, "Response: " + response, Toast.LENGTH_LONG).show();
 
 
@@ -145,10 +154,13 @@ public class TeacherRegistration extends AppCompatActivity implements CompoundBu
 
 
 
+if(validateFields()) {
 
 
-            insertIntoCloud();
-            sendEmail();
+    insertIntoCloud();
+    sendEmail();
+}
+clearFields();
         }
 
     }
@@ -186,4 +198,41 @@ public class TeacherRegistration extends AppCompatActivity implements CompoundBu
         requestQueue.add(request);
     }
 
+    boolean validateFields() {
+        boolean flag = true;
+        if (teachers.getTeacherName().isEmpty()) {
+
+                    flag = false;
+
+                    teacherName.setError("please Enter Name");
+        }
+
+
+        if(teachers.getTeacherPhone().isEmpty()){
+
+                    flag=false;
+                    teacherPhone.setError("please Enter phone");
+        }
+
+        else{
+            if(teachers.getTeacherPhone().length()<10){
+
+                        flag =false;
+                        teacherPhone.setError("please enter 10 digit phone no.");
+
+            }
+        }
+
+        return flag;
+    }
+    void clearFields()
+    {
+        teacherName.setText("");
+        teacherAddress.setText("");
+        teacherSubject.setText("");
+        teacherEmail.setText("");
+        teacherPhone.setText("");
+        teacherMale.setChecked(false);
+        teacherFemale.setChecked(false);
+    }
 }

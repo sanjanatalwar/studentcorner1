@@ -38,9 +38,11 @@ public class StudentAdapter  extends ArrayAdapter<StudentBca1>{
         TextView txtName=(TextView)view.findViewById(R.id.textViewName);
         TextView txtClass=(TextView)view.findViewById(R.id.textViewClass);
 
+
         StudentBca1 studentBca1=studentList.get(position);
         txtName.setText(studentBca1.getStuName());
         txtClass.setText(studentBca1.getStudentClass());
+
 
         return  view;
     }
