@@ -20,13 +20,15 @@ public class Bca3ResultAdapter extends ArrayAdapter<StudentBca3> {
     Context context;
     int resource;
     TeacherMarksUpdate teacherMarksUpdate;
-    ArrayList<StudentBca3> studentList;
+    ArrayList<StudentBca3> studentList,tempList;
     public Bca3ResultAdapter(Context context, int resource, ArrayList<StudentBca3> objects) {
         super(context, resource, objects);
 
         this.context=context;
         this.resource=resource;
         studentList=objects;
+        tempList = new ArrayList<>();
+        tempList.addAll(studentList);
 
     }
 
@@ -54,5 +56,22 @@ public class Bca3ResultAdapter extends ArrayAdapter<StudentBca3> {
         txtMathMarks.setText("Marks In Math:= "+String.valueOf(studentBca3.getMathMarks()));
 
         return  view;
+    }
+
+    public void filter(String str){
+
+        studentList.clear();
+
+        if(str.length()==0){
+            studentList.addAll(tempList);
+        }else{
+            for(StudentBca3 s : tempList){
+                if(s.getStuName().toLowerCase().contains(str.toLowerCase())){
+                    studentList.add(s);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
     }

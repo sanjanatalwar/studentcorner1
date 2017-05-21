@@ -16,7 +16,7 @@ public class BcaTwoAdapter  extends ArrayAdapter<StudentBca2>
 {
     Context context;
     int resource;
-    ArrayList<StudentBca2> studentList;
+    ArrayList<StudentBca2> studentList,tempList;
 
 
     public BcaTwoAdapter( Context context,  int resource,  ArrayList<StudentBca2> objects)
@@ -26,6 +26,8 @@ public class BcaTwoAdapter  extends ArrayAdapter<StudentBca2>
         this.context=context;
         this.resource=resource;
         studentList=objects;
+        tempList = new ArrayList<>();
+        tempList.addAll(studentList);
     }
 
 
@@ -44,5 +46,21 @@ public class BcaTwoAdapter  extends ArrayAdapter<StudentBca2>
 
         return  view;
 
+    }
+    public void filter(String str){
+
+        studentList.clear();
+
+        if(str.length()==0){
+            studentList.addAll(tempList);
+        }else{
+            for(StudentBca2 s : tempList){
+                if(s.getStuName().toLowerCase().contains(str.toLowerCase())){
+                    studentList.add(s);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 }

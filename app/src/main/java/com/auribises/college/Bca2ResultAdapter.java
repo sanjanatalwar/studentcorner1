@@ -22,7 +22,7 @@ public class Bca2ResultAdapter extends ArrayAdapter<StudentBca2> {
     int resource;
     TeacherMarksUpdate teacherMarksUpdate;
 
-    ArrayList<StudentBca2> studentList;
+    ArrayList<StudentBca2> studentList,tempList;
     public Bca2ResultAdapter(Context context, int resource,  ArrayList<StudentBca2> objects) {
         super(context, resource, objects);
 
@@ -30,6 +30,8 @@ public class Bca2ResultAdapter extends ArrayAdapter<StudentBca2> {
         this.context=context;
         this.resource=resource;
         studentList=objects;
+        tempList = new ArrayList<>();
+        tempList.addAll(studentList);
     }
 
     @NonNull
@@ -57,5 +59,22 @@ public class Bca2ResultAdapter extends ArrayAdapter<StudentBca2> {
         txtDataStructureMarks.setText("Marks in DataStructure:= "+String.valueOf(studentBca2.getDataStructureMarks()));
 
         return  view;
+    }
+
+    public void filter(String str){
+
+        studentList.clear();
+
+        if(str.length()==0){
+            studentList.addAll(tempList);
+        }else{
+            for(StudentBca2 s : tempList){
+                if(s.getStuName().toLowerCase().contains(str.toLowerCase())){
+                    studentList.add(s);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 }

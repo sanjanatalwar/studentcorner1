@@ -1,5 +1,8 @@
 package com.auribises.college;
 
+/**
+ * Created by Admin on 16-05-2017.
+ */
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,15 +16,16 @@ import java.util.ArrayList;
 
 
 
-public class StudentAdapter  extends ArrayAdapter<StudentBca1>{
+public class AdminBca3Adapter extends ArrayAdapter<StudentBca3> {
+
     Context context;
     int resource;
-    ArrayList<StudentBca1> studentList,tempList;
+    ArrayList<StudentBca3> studentList,tempList;
+    StudentBca3 studentBca3;
 
 
-    public StudentAdapter( Context context,  int resource,  ArrayList<StudentBca1> objects) {
+    public AdminBca3Adapter(Context context, int resource, ArrayList<StudentBca3> objects) {
         super(context, resource, objects);
-
         this.context=context;
         this.resource=resource;
         studentList=objects;
@@ -34,19 +38,17 @@ public class StudentAdapter  extends ArrayAdapter<StudentBca1>{
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view=null;
 
-        LayoutInflater inflater=LayoutInflater.from(context);
-        view=inflater.inflate(resource,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        view = inflater.inflate(resource, parent, false);
 
         TextView txtName=(TextView)view.findViewById(R.id.textViewName);
-        TextView txtClass=(TextView)view.findViewById(R.id.textViewClass);
+        TextView txtEmail=(TextView)view.findViewById(R.id.textViewEmail);
 
+        StudentBca3 studentBca3=studentList.get(position);
+        txtName.setText(studentBca3.getStuName());
+        txtEmail.setText(studentBca3.getStuEmail());
 
-        StudentBca1 studentBca1=studentList.get(position);
-        txtName.setText(studentBca1.getStuName());
-        txtClass.setText(studentBca1.getStudentClass());
-
-
-        return  view;
+        return view;
     }
     public void filter(String str){
 
@@ -55,7 +57,7 @@ public class StudentAdapter  extends ArrayAdapter<StudentBca1>{
         if(str.length()==0){
             studentList.addAll(tempList);
         }else{
-            for(StudentBca1 s : tempList){
+            for(StudentBca3 s : tempList){
                 if(s.getStuName().toLowerCase().contains(str.toLowerCase())){
                     studentList.add(s);
                 }
@@ -65,3 +67,4 @@ public class StudentAdapter  extends ArrayAdapter<StudentBca1>{
         notifyDataSetChanged();
     }
 }
+

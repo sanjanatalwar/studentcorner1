@@ -60,6 +60,7 @@ int signal=0;
         bca2marks.setText(String.valueOf(studentBca2.getDataStructureMarks()));
         Log.i("datastructure",String.valueOf(studentBca2.getDataStructureMarks()));
         ///////////////////////////////////////////////////////////////
+
     }
 
 

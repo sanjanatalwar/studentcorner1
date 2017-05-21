@@ -285,6 +285,8 @@ progressDialog.show();
                     map.put("cMArks", String.valueOf(studentBca1.getcMArks()));
                     map.put("punjabiMarks", String.valueOf(studentBca1.getPunjabiMarks()));
                     map.put("password", studentBca1.getPassword());
+                    map.put("password",studentBcatwo.getPassword());
+                    map.put("password",studentBca3.getPassword());
 
                      map.put("token",token);
 
@@ -380,7 +382,7 @@ progressDialog.show();
 
                     email = eStudentEmail.getText().toString().trim();
 
-                    subject = "Dear " + studentBca1.getStuName() + "Secret of Education lies in respecting the Student";
+                    subject = "Dear " + studentBca1.getStuName()+" " + "Secret of Education lies in respecting the Student.A warm welcome from Ggnimt.Thanku for choosing us to hone your skills";
                     comment = "Your Username:" + studentBca1.getStuEmail() + "\n" +
                             "Password:" + studentBca1.getPassword();
 
@@ -413,9 +415,9 @@ progressDialog.show();
 
                 email = eStudentEmail.getText().toString().trim();
 
-                subject = "Dear " + studentBcatwo.getStuName() + "Secret of Education lies in respecting the Student";
-                comment = "Your Username:" + studentBcatwo.getStuEmail() + "\n" +
-                        "Password:" + studentBcatwo.getPassword();
+                subject = "Dear " + studentBca3.getStuName() + "Secret of Education lies in respecting the Student";
+                comment = "Your Username:" + studentBca3.getStuEmail() + "\n" +
+                        "Password:" + studentBca3.getPassword();
                 //insertIntoCloud();
                 if(validateFields()){
                     insertIntoCloud();

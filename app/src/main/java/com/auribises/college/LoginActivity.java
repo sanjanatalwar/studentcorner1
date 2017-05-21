@@ -148,12 +148,31 @@ login=(Button)findViewById(R.id.login);
             Intent i=new Intent(LoginActivity.this,AdminLoginActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_send) {
+            Intent i=new Intent(Intent.ACTION_VIEW,Uri.parse("http://studentedu.esy.es/Sessions"));
+            startActivity(i);
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+   boolean validateFields(){
+        boolean flag=true;
+       String abc=name.getText().toString().trim();
+       String def=epassword.getText().toString().trim();
+        if(abc.matches("")){
+            if(def.matches("")) {
+
+
+                flag = false;
+                name.setError("please Enter  valid Email or Password");
+                epassword.setError("please Enter password");
+            }
+        }
+
+         return flag;
     }
     public void logIn() {
 
@@ -166,6 +185,7 @@ login=(Button)findViewById(R.id.login);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
+
                         JSONArray jsonArray = jsonObject.getJSONArray("teacher");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -174,11 +194,14 @@ login=(Button)findViewById(R.id.login);
                             teachers.setTeacherName(jsonObject1.getString("teacherName"));
                             editor.putString(Util.KEY_NAME, teachers.getTeacherName());
                             editor.putString(Util.KEY_SUBJECT, teachers.getTeacherSubject());
+                            if(jsonObject.getInt("success")==1)
+                                startActivity(new Intent(LoginActivity.this, TeacherOption.class));
 //                        Log.i("SUBJECTS",teachers.getTeacherSubject());
                         }
 
                         //startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
-                        startActivity(new Intent(LoginActivity.this, TeacherOption.class));
+                        //if(jsonObject.getInt("success")==1)
+                        //startActivity(new Intent(LoginActivity.this, TeacherOption.class));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -238,32 +261,6 @@ Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ///}////
-
-
-               /* try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("teacher");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        Teachers teachers = new Teachers();
-                        teachers.setTeacherSubject(jsonObject1.getString("teacherSubject"));
-                        teachers.setTeacherName(jsonObject1.getString("teacherName"));
-                        editor.putString(Util.KEY_NAME, teachers.getTeacherName());
-                        editor.putString(Util.KEY_SUBJECT, teachers.getTeacherSubject());
-//                        Log.i("SUBJECTS",teachers.getTeacherSubject());
-                    }
-
-                    //startActivity(new Intent(LoginActivity.this,AllStudentActivity.class));
-                    startActivity(new Intent(LoginActivity.this, TeacherOption.class));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                editor.commit();
-
-            }*/
 
             }
 
@@ -435,14 +432,15 @@ Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
     public  void onClick(View v){
         int id=v.getId();
         if(id==R.id.login){
-            email=name.getText().toString().trim();
-            password=epassword.getText().toString().trim();
-            //Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
-            //startActivity(i);
+            if(validateFields()) {
+                email = name.getText().toString().trim();
+                password = epassword.getText().toString().trim();
+                //Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
+                //startActivity(i);
 
-              logIn();
+                logIn();
 
-
+            }
         }
     }
 
@@ -452,11 +450,16 @@ Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
         int id = view.getId();
         if(id ==R.id.studentLogin)
         {
-            email=name.getText().toString().trim();
-            password=epassword.getText().toString().trim();
-            studentLogin();
-        }
-    }
+            //email=name.getText().toString().trim();
+            //password=epassword.getText().toString().trim();
+            if(validateFields()) {
+
+                email=name.getText().toString().trim();
+                password=epassword.getText().toString().trim();
+                studentLogin();
+            }
+
+    }}
 
     public  void bca2login(View view)
 
@@ -464,10 +467,13 @@ Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
         int id = view.getId();
         if(id ==R.id.bca2login)
         {
+            if(validateFields()){
+
+
             email=name.getText().toString().trim();
             password=epassword.getText().toString().trim();
             bca2Login();
-        }
+        }}
     }
 
     public  void bca3login(View view)
@@ -476,10 +482,13 @@ Intent i=new Intent(LoginActivity.this,AllBcaOneResult.class);
         int id = view.getId();
         if(id ==R.id.bca3login)
         {
-            email=name.getText().toString().trim();
-            password=epassword.getText().toString().trim();
-            bca3Login();
+            if(validateFields()) {
 
+
+                email = name.getText().toString().trim();
+                password = epassword.getText().toString().trim();
+                bca3Login();
+            }
         }
     }
 

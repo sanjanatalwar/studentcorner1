@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/bca1list"
-        android:layout_width="341dp"
-        android:layout_height="138dp"
+        android:layout_width="317dp"
+        android:layout_height="88dp"
         android:text="List Of Bca1"
         android:onClick="onClick"
         android:textSize="30dp"
@@ -26,13 +26,13 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.104"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintVertical_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.019" />
 
     <Button
         android:id="@+id/bca2list"
-        android:layout_width="342dp"
-        android:layout_height="132dp"
+        android:layout_width="310dp"
+        android:layout_height="82dp"
         android:text="List Of Bca2"
         android:textSize="30dp"
         android:onClick="bca2Click"
@@ -47,13 +47,13 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintVertical_bias="0.307" />
 
     <Button
         android:id="@+id/bca3list"
-        android:layout_width="343dp"
-        android:layout_height="130dp"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
         android:text="List of Bca3"
         android:textSize="30dp"
         android:onClick="onclick"
@@ -68,6 +68,57 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.838"
-        app:layout_constraintHorizontal_bias="0.153" />
+        app:layout_constraintVertical_bias="0.543"
+        app:layout_constraintHorizontal_bias="0.181" />
+
+    <Button
+        android:id="@+id/bca1result"
+        android:layout_width="219dp"
+        android:layout_height="49dp"
+        android:text="Result of bca1"
+        android:onClick="result1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintVertical_bias="0.729" />
+
+    <Button
+        android:id="@+id/bca2result"
+        android:layout_width="225dp"
+        android:layout_height="44dp"
+        android:text="Result og bca2"
+        android:onClick="result2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintVertical_bias="0.864" />
+
+    <Button
+        android:id="@+id/bca3result"
+        android:layout_width="185dp"
+        android:layout_height="45dp"
+        android:text="Result of bca3"
+        android:onClick="result3"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintVertical_bias="0.982" />
 </android.support.constraint.ConstraintLayout>

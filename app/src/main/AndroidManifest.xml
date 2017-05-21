@@ -60,7 +60,11 @@
         </service>
         rebase_iid_service] -->
         <activity android:name=".AdminLoginActivity" />
-        <activity android:name=".AdminOptions"></activity>
+        <activity android:name=".AdminOptions" />
+        <activity android:name=".AdminBca1List" />
+        <activity android:name=".AdminBca2List" />
+        <activity android:name=".AdminBca3List" />
+        <activity android:name=".AdminTeacher"></activity>
     </application>
 
 </manifest>

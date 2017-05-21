@@ -1,7 +1,9 @@
 package com.auribises.college;
 
+/**
+ * Created by Admin on 16-05-2017.
+ */
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,63 +14,56 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 06-05-2017.
- */
+public class AdminTeacherAdapter extends ArrayAdapter<Teachers> {
 
-public class Bca3Adapter  extends ArrayAdapter<StudentBca3>
-
-{Context context;
+    Context context;
     int resource;
-    ArrayList<StudentBca3> studentList,tempList;
-    StudentBca3 studentBca3;
+    ArrayList<Teachers> teachersList,tempList;
+    Teachers teachers;
 
-
-    public Bca3Adapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<StudentBca3> objects) {
-
+    public AdminTeacherAdapter(Context context, int resource, ArrayList<Teachers> objects) {
 
         super(context, resource, objects);
-
-
-
         this.context=context;
         this.resource=resource;
-        studentList=objects;
+        teachersList=objects;
         tempList = new ArrayList<>();
-        tempList.addAll(studentList);
+        tempList.addAll(teachersList);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = null;
+        View view=null;
+
         LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(resource, parent, false);
 
         TextView txtName=(TextView)view.findViewById(R.id.textViewName);
-        TextView txtClass=(TextView)view.findViewById(R.id.textViewClass);
+        TextView txtEmail=(TextView)view.findViewById(R.id.textViewEmail);
 
-        StudentBca3 studentBca3=studentList.get(position);
-        txtName.setText(studentBca3.getStuName());
-        txtClass.setText(studentBca3.getStudentClass());
+        Teachers teachers=teachersList.get(position);
+        txtName.setText(teachers.getTeacherName());
+        txtEmail.setText(teachers.getTeacherEmail());
 
-        return  view;
+        return view;
     }
-
     public void filter(String str){
 
-        studentList.clear();
+        teachersList.clear();
 
         if(str.length()==0){
-            studentList.addAll(tempList);
+            teachersList.addAll(tempList);
         }else{
-            for(StudentBca3 s : tempList){
-                if(s.getStuName().toLowerCase().contains(str.toLowerCase())){
-                    studentList.add(s);
+            for(Teachers s : tempList){
+                if(s.getTeacherName().toLowerCase().contains(str.toLowerCase())){
+                    teachersList.add(s);
                 }
             }
         }
 
         notifyDataSetChanged();
     }
+
 }
+

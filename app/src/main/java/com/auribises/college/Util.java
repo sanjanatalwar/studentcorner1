@@ -57,4 +57,11 @@ public class Util {
     public static final String BCA_TWO_Login_PHP = "http://studentedu.esy.es/student_corner/Bca2Login.php";
     public static final String BCA_THREE_Login_PHP = "http://studentedu.esy.es/student_corner/Bca3Login.php";
     public static final String ADMIN_Login_PHP = "http://studentedu.esy.es/student_corner/adminLogin.php";
+    public static final String RETERIEVE_TEACHER_PHP = "http://studentedu.esy.es/student_corner/TeacherReterieve.php";
+
+    public static final String BCA_ONE_DELETE_PHP = "http://studentedu.esy.es/student_corner/BcaOneDelete.php";
+
+    public static final String BCA_TWO_DELETE_PHP = "http://studentedu.esy.es/student_corner/Bca2Delete.php";
+    public static final String BCA_THREE_DELETE_PHP = "http://studentedu.esy.es/student_corner/Bca3Delete.php";
+    public static final String TEACHER_DELETE_PHP = "http://studentedu.esy.es/student_corner/TeachersDelete.php";
 }
